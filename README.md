@@ -12,6 +12,8 @@ for everyone to enter and see upcoming events.
 *  Google Maps
 *  [Big Calendar](http://intljusticemission.github.io/react-big-calendar/examples/index.html#intro)
 
+## Notes
+* Uses [Event Tracker Server](https://github.com/tcrafton/EventTrackerServer) as the backend
 
 ## Goals
 
