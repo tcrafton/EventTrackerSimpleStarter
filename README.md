@@ -1,25 +1,29 @@
-# ReduxSimpleStarter
+# Event Tracker
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+This is the same as Event Tracker but uses ReduxSimpleStarter instead of React Slingshot.  I really like
+React Slingshot but ReduxSimpleStarter is less complicated so I decided to get it working with it first.
 
-###Getting Started###
+Event Tracker is an application for tracking events with a group.  For example, a family can use it to have a central place
+for everyone to enter and see upcoming events.
 
-There are two methods for getting started with this repo.
+## Technologies Used
+*  React and Redux
+*  [ReduxSimpleStarter](https://github.com/StephenGrider/ReduxSimpleStarter)
+*  Google Maps
+*  [Big Calendar](http://intljusticemission.github.io/react-big-calendar/examples/index.html#intro)
 
-####Familiar with Git?#####
-Checkout this repo, install dependencies, then start the gulp process with the following:
 
-```
-	> git clone git@github.com:StephenGrider/ReduxSimpleStarter.git
-	> cd ReduxSimpleStarter
-	> npm install
-	> npm start
-```
+## Goals
 
-####Not Familiar with Git?#####
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
+*  Screen to list events (can filter to just see the ones you're signed up for)
+*  Screen to create an event
+*  Screen to edit events (Master/Detail view)
+*  Calendar that shows the events (can filter to show all or an individual's events)
+*  Setup MongoDB or Firebase on the backend
+*  Setup authorization
+*  Setup event reminders
 
-```
-	> npm install
-	> npm start
-```
+
+## References
+
+* [Integrating Google Maps in React Using refs](https://www.codementor.io/reactjs/tutorial/integrate-google-maps-api-react-refs)
