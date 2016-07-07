@@ -1,4 +1,4 @@
-# Event Tracker
+# Event Tracker Simple Starter
 
 This is the same as Event Tracker but uses ReduxSimpleStarter instead of React Slingshot.  I really like
 React Slingshot but ReduxSimpleStarter is less complicated so I decided to get it working with it first.
