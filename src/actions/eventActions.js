@@ -24,8 +24,6 @@ export function fetchEvents() {
 }
 
 export function updateEvent(event) {
-   console.log('in action');
-  console.log(event);
   return function(dispatch) {
     axios.put(`${ROOT_URL}/events/${event._id}`, event)
       .then(response => {

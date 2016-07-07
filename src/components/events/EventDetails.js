@@ -2,18 +2,11 @@
 /*eslint no-undef: "error"*/
 
 import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
+import { reduxForm, FieldArray } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { updateEvent } from '../../actions/eventActions';
 
 class EventDetail extends Component {
-  constructor(props) {
-    super(props);
-
-    this.updateEventState = this.updateEventState.bind(this);
-    this.saveEvent = this.saveEvent.bind(this);
-  }
-
   componentDidUpdate() {
     const SELECTED_LAT_LON = {
       lat: this.props.event.lat,
@@ -30,30 +23,22 @@ class EventDetail extends Component {
     };
   }
 
-  handleFormSubmit({_id, eventName, eventDate, description}) {
-    //console.log(this.state.event);
-    //console.log({ eventName, eventDate, description});
-    let event = {_id,  eventName, eventDate, description};
-
-    console.log(event);
+  handleFormSubmit({_id, eventName, eventDate, description, lat, lon}) {
+    let event = {_id,  eventName, eventDate, description, lat, lon};
     this.props.updateEvent(event);
   }
 
-  updateEventState(e) {
-    const field = e.target.name;
-    let event = this.state.event;
-    event[field] = e.target.value;
-    this.setState({event: event});
-    return this.setState({event: event});
-  }
+  // updateEventState(e) {
+  //   const field = e.target.name;
+  //   let event = this.state.event;
+  //   event[field] = e.target.value;
+  //   this.setState({event: event});
+  //   return this.setState({event: event});
+  // }
 
-  saveEvent(e) {
-    e.preventDefault();
-    console.log(this.state.event);
-    // let event = this.state.event;
-    // event[field] = e.target.value;
-    //this.props.updateEvent(event);
-  }
+  // saveEvent(e) {
+  //   e.preventDefault();
+  // }
 
   render() {
     const mapStyle = {
@@ -62,10 +47,11 @@ class EventDetail extends Component {
       border: '1px solid black'
     };
 
-    const { fields: {_id, eventName, eventDate, description },
+    const { fields: {_id, eventName, eventDate, description, lat, lon, number, street, city, state, zipcode },
       handleSubmit,
       submitting
       } = this.props;
+
 
     if (!this.props.event) {
       return <div>Select an Event</div>;
@@ -100,7 +86,40 @@ class EventDetail extends Component {
                 </div>
               </div>
 
+              <div className="form-group">
+                <label htmlFor="inputNumber" className="col-md-3 control-label">Number</label>
+                <div className="col-md-6">
+                  <input type="text" className="form-control" id="inputNumber" {...number} />
+                </div>
+              </div>
 
+              <div className="form-group">
+                <label htmlFor="inputStreet" className="col-md-3 control-label">Street</label>
+                <div className="col-md-6">
+                  <input type="text" className="form-control" id="inputStreet" {...street} />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="inputCity" className="col-md-3 control-label">City</label>
+                <div className="col-md-6">
+                  <input type="text" className="form-control" id="inputCity" {...city} />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="inputState" className="col-md-3 control-label">State</label>
+                <div className="col-md-6">
+                  <input type="text" className="form-control" id="inputState" {...state} />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="inputZip" className="col-md-3 control-label">Zip Code</label>
+                <div className="col-md-6">
+                  <input type="text" className="form-control" id="inputZip" {...zipcode} />
+                </div>
+              </div>
 
             </div>
 
@@ -140,5 +159,5 @@ function mapDispatchToProps(dispatch) {
 
 export default reduxForm({
   form: 'EventDetailForm',
-  fields: ['_id', 'eventName', 'eventDate', 'description' ]
+  fields: ['_id', 'eventName', 'eventDate', 'description', 'lat', 'lon', 'number', 'street', 'city', 'state', 'zipcode' ]
 }, mapStateToProps, mapDispatchToProps)(EventDetail);
