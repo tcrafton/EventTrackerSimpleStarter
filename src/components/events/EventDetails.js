@@ -21,24 +21,33 @@ class EventDetail extends Component {
     this.state = {
       event: Object.assign({}, this.props.event)
     };
+
   }
 
-  handleFormSubmit({_id, eventName, eventDate, description, lat, lon}) {
-    let event = {_id,  eventName, eventDate, description, lat, lon};
+  handleFormSubmit({_id, eventName, eventDate, description, lat, lon, number, street, city, state, zipcode}) {
+    const map = new google.maps.Map(document.getElementById('map'));
+    const geocoder = new google.maps.Geocoder();
+    let event = {_id,  eventName, eventDate, description, lat, lon, number, street, city, state, zipcode};
     this.props.updateEvent(event);
+    console.log(event);
+
+    this.geocodeAddress(geocoder, zipcode, map);
   }
 
-  // updateEventState(e) {
-  //   const field = e.target.name;
-  //   let event = this.state.event;
-  //   event[field] = e.target.value;
-  //   this.setState({event: event});
-  //   return this.setState({event: event});
-  // }
-
-  // saveEvent(e) {
-  //   e.preventDefault();
-  // }
+  geocodeAddress(geocoder, newAddress, resultsMap) {
+    geocoder.geocode({'address': newAddress}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+          console.log(results[0].geometry.location);
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+        });
+      } else {
+        console.log('Geocode was not successful for the following reason: ', status);
+      }
+    });
+  }
 
   render() {
     const mapStyle = {
@@ -61,9 +70,9 @@ class EventDetail extends Component {
       <div>
       <form className="form-horizontal" >
         <div className="well well-sm">
+          <legend>Event Info</legend>
           <div className="row">
             <div className="col-md-6">
-              <legend>Event Info</legend>
 
               <div className="form-group">
                 <label htmlFor="inputEventName" className="col-md-3 control-label">Event Name</label>
@@ -85,7 +94,19 @@ class EventDetail extends Component {
                   <textarea className="form-control" id="inputDescription" rows="4" {...description} />
                 </div>
               </div>
+            </div>
 
+            <div className="col-md-3">
+              <div id="map" ref="map" style={mapStyle}>I should be a map!</div>
+            </div>
+
+
+
+          </div>
+
+          <legend>Address</legend>
+          <div className="row">
+            <div className="col-md-6">
               <div className="form-group">
                 <label htmlFor="inputNumber" className="col-md-3 control-label">Number</label>
                 <div className="col-md-6">
@@ -107,33 +128,34 @@ class EventDetail extends Component {
                 </div>
               </div>
 
+              <button type="button" className="btn btn-primary" onClick={handleSubmit(this.handleFormSubmit.bind(this))}>
+                Save
+              </button>
+
+            </div>
+
+
+            <div className="col-md-5">
+
               <div className="form-group">
                 <label htmlFor="inputState" className="col-md-3 control-label">State</label>
-                <div className="col-md-6">
+                <div className="col-md-4">
                   <input type="text" className="form-control" id="inputState" {...state} />
                 </div>
               </div>
 
               <div className="form-group">
                 <label htmlFor="inputZip" className="col-md-3 control-label">Zip Code</label>
-                <div className="col-md-6">
+                <div className="col-md-4">
                   <input type="text" className="form-control" id="inputZip" {...zipcode} />
                 </div>
               </div>
 
             </div>
-
-            <div className="col-md-3">
-              <div ref="map" style={mapStyle}>I should be a map!</div>
-            </div>
-
           </div>
+
         </div>
       </form>
-
-      <button type="button" className="btn btn-primary" onClick={handleSubmit(this.handleFormSubmit.bind(this))}>
-        Save
-      </button>
 
       </div>
     );
