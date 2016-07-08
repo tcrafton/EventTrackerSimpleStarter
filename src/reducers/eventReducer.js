@@ -11,7 +11,6 @@ export default function(state = null, action) {
       return Object.assign({}, action.payload, addressNumber, street, city, addressState, zip);
 
     case types.UPDATE_EVENT:
-    console.log('in reducer?');
       return Object.assign({}, action.payload);
 
     default:

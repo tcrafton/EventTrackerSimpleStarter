@@ -29,3 +29,5 @@ for everyone to enter and see upcoming events.
 ## References
 
 * [Integrating Google Maps in React Using refs](https://www.codementor.io/reactjs/tutorial/integrate-google-maps-api-react-refs)
+
+* [Introduction to Google Maps API Featuring ES6 Promises](http://jamesbedont.com/2016/03/23/GoogleMapsApiIntroduction.html)
