@@ -7,6 +7,10 @@ import { bindActionCreators } from 'redux';
 import { updateEvent } from '../../actions/eventActions';
 
 class EventDetail extends Component {
+  componentWillMount() {
+    const doStuff = () => console.log('clicked!!');
+  }
+
   componentDidUpdate() {
     const SELECTED_LAT_LON = {
       lat: this.props.event.lat,
@@ -24,29 +28,33 @@ class EventDetail extends Component {
 
   }
 
-  handleFormSubmit({_id, eventName, eventDate, description, lat, lon, number, street, city, state, zipcode}) {
+  handleFormSubmit({_id, eventName, eventDate, description, lat, lon, number, street, city, state, zipcode}, cb) {
     const map = new google.maps.Map(document.getElementById('map'));
     const geocoder = new google.maps.Geocoder();
-    let event = {_id,  eventName, eventDate, description, lat, lon, number, street, city, state, zipcode};
-    this.props.updateEvent(event);
-    console.log(event);
 
-    this.geocodeAddress(geocoder, zipcode, map);
+    let event = {_id,  eventName, eventDate, description, lat, lon, number, street, city, state, zipcode};
+
+    this.geocodeAddress(geocoder, zipcode, map, event);
+
+    //this.geocodeAddress(geocoder, zipcode, map);
+
+    this.props.updateEvent(event);
   }
 
   geocodeAddress(geocoder, newAddress, resultsMap) {
+    let LatLng = {};
     geocoder.geocode({'address': newAddress}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
-          console.log(results[0].geometry.location);
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
-        });
+          // console.log(results[0].geometry.location.lat());
+          // console.log(results[0].geometry.location.lng());
+          LatLng.lat = results[0].geometry.location.lat();
+          LatLng.lng = results[0].geometry.location.lng();
       } else {
         console.log('Geocode was not successful for the following reason: ', status);
       }
     });
+
+    return LatLng;
   }
 
   render() {
