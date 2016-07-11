@@ -14,6 +14,9 @@ class Header extends Component {
           <Link className="nav-link" to="/EventsPage">Events</Link>
         </li>,
         <li className="nav-item" key={3}>
+          <Link className="nav-link" to="/CalendarPage">Calendar</Link>
+        </li>,
+        <li className="nav-item" key={4}>
           <Link className="nav-link" to="/signout">Sign Out</Link>
         </li>
       ];

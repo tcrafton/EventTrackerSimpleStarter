@@ -28,33 +28,23 @@ class EventDetail extends Component {
 
   }
 
-  handleFormSubmit({_id, eventName, eventDate, description, lat, lon, number, street, city, state, zipcode}, cb) {
+  handleFormSubmit({_id, eventName, eventDate, description, lat, lon, number, street, city, state, zipcode}) {
     const map = new google.maps.Map(document.getElementById('map'));
     const geocoder = new google.maps.Geocoder();
 
     let event = {_id,  eventName, eventDate, description, lat, lon, number, street, city, state, zipcode};
 
-    this.geocodeAddress(geocoder, zipcode, map, event);
-
-    //this.geocodeAddress(geocoder, zipcode, map);
-
     this.props.updateEvent(event);
   }
 
-  geocodeAddress(geocoder, newAddress, resultsMap) {
-    let LatLng = {};
-    geocoder.geocode({'address': newAddress}, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-          // console.log(results[0].geometry.location.lat());
-          // console.log(results[0].geometry.location.lng());
-          LatLng.lat = results[0].geometry.location.lat();
-          LatLng.lng = results[0].geometry.location.lng();
-      } else {
-        console.log('Geocode was not successful for the following reason: ', status);
-      }
-    });
-
-    return LatLng;
+  renderAlert() {
+    if (this.props.errorMessage.error) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Crap!</strong> {this.props.errorMessage.error}
+        </div>
+      );
+    }
   }
 
   render() {
@@ -136,6 +126,7 @@ class EventDetail extends Component {
                 </div>
               </div>
 
+              {this.renderAlert()}
               <button type="button" className="btn btn-primary" onClick={handleSubmit(this.handleFormSubmit.bind(this))}>
                 Save
               </button>
@@ -179,7 +170,8 @@ EventDetail.propTypes = {
 function mapStateToProps(state) {
   return {
     event: state.events,
-    initialValues: state.events
+    initialValues: state.events,
+    errorMessage: state.events
   };
 }
 

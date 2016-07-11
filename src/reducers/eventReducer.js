@@ -13,6 +13,9 @@ export default function(state = null, action) {
     case types.UPDATE_EVENT:
       return Object.assign({}, action.payload);
 
+    case types.EVENT_ERROR:
+      return {...state, error: action.payload };
+
     default:
       return state;
   }

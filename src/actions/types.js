@@ -5,3 +5,4 @@ export const FETCH_MESSAGE = 'fetch_message';
 export const FETCH_EVENTS = 'fetch_events';
 export const EVENT_SELECTED = 'EVENT_SELECTED';
 export const UPDATE_EVENT = 'UPDATE_EVENT';
+export const EVENT_ERROR = 'EVENT_ERROR';

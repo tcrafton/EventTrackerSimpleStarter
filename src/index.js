@@ -14,6 +14,7 @@ import Welcome from './components/welcome';
 import Overview from './components/OverviewPage';
 import RequireAuth from './components/auth/require_auth';
 import EventsPage from './components/events/EventsPage';
+import CalendarPage from './components/calendar/CalendarPage';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route path="signup" component={Signup} />
         <Route path="overview" component={Overview} />
         <Route path="eventsPage" component={RequireAuth(EventsPage)} />
+        <Route path="calendarPage" component={CalendarPage} />
         <Route path="feature" component={RequireAuth(Feature)} />
       </Route>
     </Router>

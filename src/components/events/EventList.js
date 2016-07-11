@@ -9,6 +9,11 @@ class EventList extends Component {
     this.props.fetchEvents();
   }
 
+   componentDidUpdate() {
+    // this.props.fetchEvents();
+    this.renderList();
+  }
+
   renderList() {
     if (this.props.events !== undefined) {
       return this.props.events.map((event) => {

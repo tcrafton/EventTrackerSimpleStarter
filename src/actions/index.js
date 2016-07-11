@@ -5,7 +5,8 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   FETCH_MESSAGE,
-  FETCH_EVENTS
+  FETCH_EVENTS,
+  EVENT_ERROR
 } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
